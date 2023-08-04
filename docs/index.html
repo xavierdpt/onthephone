@@ -8,6 +8,9 @@
 </head>
 <body>
 <script>
+  const xce = document.createElement;
+  const xctn = document.createTextNode;
+  const xac = (p,e)=>p.appendChild(e);
   let links = [
     {
       title:'MDN Viewport meta tag',
@@ -18,8 +21,8 @@
       url:'https://vimdoc.sourceforge.net/htmldoc/options.html#auto-setting'
     },
   ];
-  document.body.appendChild(document.createTextNode('Hello world'));
-  const ul = document.createElement('ul');
+  xac(document.body,xctn('Hello world'));
+  const ul = xce('ul');
   for(let link of links.sort((x,y)=>x.url===y.url?0:x.url<y.url?-1:1)) {
     let hostname=link.url.substring('https://'.length);
     const firstSlash = hostname.indexOf('/');
@@ -27,22 +30,22 @@
       hostname = hostname.substring(0,firstSlash);
     }
     {
-      const li = document.createElement('li');
+      const li = xce('li');
       li.setAttribute('style','font-weight: bold; list-style-type:none;');
-      li.appendChild(document.createTextNode(hostname));
-      ul.appendChild(li);
+      xac(li,xctn(hostname));
+      xac(ul,li);
     }
     {
-      const li = document.createElement('li');
-      const a = document.createElement('a');
+      const li = xce('li');
+      const a = xce('a');
       a.setAttribute('href',link.url);
       a.setAttribute('target','_blank');
-      a.appendChild(document.createTextNode(link.title));
-      li.appendChild(a);
-      ul.appendChild(li);
+      xac(a,xctn(link.title));
+      xac(li,a);
+      xac(ul,li);
     }
   }
-  document.body.appendChild(ul);
+  xac(document.body,ul);
 </script>
 </body>
 </html>
