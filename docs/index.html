@@ -6,7 +6,6 @@
 </head>
 <body>
 <script>
-try {
   let links = [
     {
       title:'MDN Viewport meta tag',
@@ -41,11 +40,6 @@ try {
     }
   }
   document.body.appendChild(ul);
-} catch(error) {
-  const pre = document.createElement('pre');
-  pre.appendChild(document.createTextNode(error.message));
-  document.body.appendChild(pre);
-}
 </script>
 </body>
 </html>
