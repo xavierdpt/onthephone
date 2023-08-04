@@ -18,7 +18,7 @@
   ];
   document.body.appendChild(document.createTextNode('Hello world'));
   const var ul = document.createElement('ul');
-  for(let link of links.sort((x,y)=>x.url===y.url?0:x.url<y.url?-1:1)) {
+  for(let link of links/*.sort((x,y)=>x.url===y.url?0:x.url<y.url?-1:1)*/) {
     /*
     let hostname=link.url.substring('https://'.length);
     const firstSlash = hostname.indexOf('/');
