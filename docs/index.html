@@ -44,6 +44,7 @@ try {
 } catch(error) {
   const pre = document.createElement('pre');
   pre.appendChild(document.createTextNode(error.message));
+  document.body.appendChild(pre);
 }
 </script>
 </body>
