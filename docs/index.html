@@ -23,12 +23,11 @@ try {
     let hostname=link.url.substring('https://'.length);
     const firstSlash = hostname.indexOf('/');
     if(firstSlash != -1) {
-      firstSlash = hostname.substring(0,firstSlash);
+      hostname = hostname.substring(0,firstSlash);
     }
     {
       const li = document.createElement('li');
       li.appendChild(document.createTextNode(hostname));
-      li.appendChild(a);
       ul.appendChild(li);
     }
     {
