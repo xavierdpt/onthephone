@@ -21,13 +21,13 @@
     let move=false;
     const div = xce('div');
     xsa(div,'style','position:relative;background:gray');
-    xon(div,'mousedown',()=>{
+    xon(div,'touchstart',()=>{
       handle=setTimeout(()=>{
         move=true;
         div.style.border='solid 1px black';
       },1000);
     });
-    xon(div,'mouseup',()=>{
+    xon(div,'touchend',()=>{
         move=false;
         div.style.border='none';
         clearTimeout(handle);
@@ -37,6 +37,9 @@
     xac(span,xctn('File'));
     let ndiv=null;
     xon(span,'click',()=>{
+      if(move) {
+        return;
+      }
       if(ndiv) {
         xrm(ndiv);
       } else {
