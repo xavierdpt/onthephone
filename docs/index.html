@@ -16,13 +16,13 @@
   const xon = (e,evt,fn)=>e.addEventListener(evt,fn);
   {
     const div = xce('div');
-    xsa(div,'style','display:relative;background:gray');
+    xsa(div,'style','position:relative;background:gray');
     const span = xce('span');
     xsa(span,'style','padding:4px;');
     xac(span,xctn('File'));
     xon(span,'click',()=>{
       const ndiv = xce('div');
-      xsa(ndiv,'style','display:absolute;top:100%;width:fit-content;background:gray');
+      xsa(ndiv,'style','position:absolute;background:gray');
       const span = xce('span');
       xsa(span,'style','padding:4px;');
       xac(span,xctn('Preferences'));
