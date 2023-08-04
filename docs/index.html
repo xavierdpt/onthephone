@@ -8,8 +8,8 @@
 </head>
 <body>
 <script>
-  const xce = document.createElement;
-  const xctn = document.createTextNode;
+  const xce = e=>document.createElement(e);
+  const xctn = text=>document.createTextNode(text);
   const xac = (p,e)=>p.appendChild(e);
   let links = [
     {
