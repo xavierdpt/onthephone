@@ -17,15 +17,28 @@ let links =[
 	},
 ];
 document.body.appendChild(document.createTextNode('Hello world'));
-  var ul = document.createElement('ul');
-  for(link of links) {
-    var li = document.createElement('li');
-    var a = document.createElement('a');
-    a.setAttribute('href',link.url);
-    a.setAttribute('target','_blank');
-    a.appendChild(document.createTextNode(link.title));
-    li.appendChild(a);
-    ul.appendChild(li);
+  const var ul = document.createElement('ul');
+  for(const link of links.sort(x=>x.url)) {
+    let hostname=link.url.substring('https://'.length);
+    const firstSlash = hostname.indexOf('/');
+    if(firstSlash != -1) {
+      firstSlash = hostname.substring(0,firstSlash);
+    }
+    {
+      const li = document.createElement('li');
+      li.appendChild(document.createTextNode(hostname));
+      li.appendChild(a);
+      ul.appendChild(li);
+    }
+    {
+      const li = document.createElement('li');
+      const a = document.createElement('a');
+      a.setAttribute('href',link.url);
+      a.setAttribute('target','_blank');
+      a.appendChild(document.createTextNode(link.title));
+      li.appendChild(a);
+      ul.appendChild(li);
+    }
   }
   document.body.appendChild(ul);
 </script>
