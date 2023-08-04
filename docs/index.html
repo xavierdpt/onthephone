@@ -19,6 +19,7 @@
   document.body.appendChild(document.createTextNode('Hello world'));
   const var ul = document.createElement('ul');
   for(let link of links.sort(x=>x.url)) {
+    /*
     let hostname=link.url.substring('https://'.length);
     const firstSlash = hostname.indexOf('/');
     if(firstSlash != -1) {
@@ -29,6 +30,7 @@
       li.appendChild(document.createTextNode(hostname));
       ul.appendChild(li);
     }
+    */
     {
       const li = document.createElement('li');
       const a = document.createElement('a');
