@@ -14,20 +14,26 @@
   const xac = (p,e)=>p.appendChild(e);
   const xsa = (e,a,v)=>e.setAttribute(a,v);
   const xon = (e,evt,fn)=>e.addEventListener(evt,fn);
+  const xrm = (e)=>e.parentNode.removeChild(e);
   {
     const div = xce('div');
     xsa(div,'style','position:relative;background:gray');
     const span = xce('span');
     xsa(span,'style','padding:4px;');
     xac(span,xctn('File'));
+    let ndiv=null;
     xon(span,'click',()=>{
-      const ndiv = xce('div');
-      xsa(ndiv,'style','position:absolute;background:gray');
-      const span = xce('span');
-      xsa(span,'style','padding:4px;');
-      xac(span,xctn('Preferences'));
-      xac(ndiv,span);
-      xac(div,ndiv);
+      if(ndiv) {
+        xrm(ndiv);
+      } else {
+        const ndiv = xce('div');
+        xsa(ndiv,'style','position:absolute;background:gray');
+        const span = xce('span');
+        xsa(span,'style','padding:4px;');
+        xac(span,xctn('Preferences'));
+        xac(ndiv,span);
+        xac(div,ndiv);
+      }
     });
     xac(div,span);
     xac(xb,div);
