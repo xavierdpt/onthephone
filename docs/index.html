@@ -10,7 +10,17 @@
 <script>
   const xce = e=>document.createElement(e);
   const xctn = text=>document.createTextNode(text);
+  const xb = document.body;
   const xac = (p,e)=>p.appendChild(e);
+  const xsa = (e,a,v)=>e.setAttribute(a,v);
+  {
+    const div = xce('div');
+    xsa(div,'style','background:gray');
+    const span = xce('span');
+    xac(span,xctn('File'));
+    xac(div,span);
+    xac(xb,div);
+  }
   let links = [
     {
       title:'MDN Viewport meta tag',
