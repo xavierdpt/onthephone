@@ -21,14 +21,13 @@
     xsa(span,'style','padding:4px;');
     xac(span,xctn('File'));
     xon(span,'click',()=>{
-      const prnt = div;
-      const div = xce('div');
-      xsa(div,'style','display:absolute;top:100%;background:gray');
+      const ndiv = xce('div');
+      xsa(ndiv,'style','display:absolute;top:100%;background:gray');
       const span = xce('span');
       xsa(span,'style','padding:4px;');
       xac(span,xctn('Preferences'));
-      xac(div,span);
-      xac(prnt,div);
+      xac(ndiv,span);
+      xac(div,ndiv);
     });
     xac(div,span);
     xac(xb,div);
