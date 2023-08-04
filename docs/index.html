@@ -1,4 +1,4 @@
-<!-- vim: set ts=2 sw=2 et: -->
+<!-- vim: set ts=2 sw=2 et number: -->
 <html>
 <head>
 <title>On the Phone again</title>
@@ -6,17 +6,18 @@
 </head>
 <body>
 <script>
-let links =[
-	{
-		title:'MDN Viewport meta tag',
-		url:'https://developer.mozilla.org/en-US/docs/Web/HTML/Viewport_meta_tag'
-	},
-	{
-		title:'Vim Modeline',
-		url:'https://vimdoc.sourceforge.net/htmldoc/options.html#auto-setting'
-	},
-];
-document.body.appendChild(document.createTextNode('Hello world'));
+try {
+  let links = [
+    {
+      title:'MDN Viewport meta tag',
+      url:'https://developer.mozilla.org/en-US/docs/Web/HTML/Viewport_meta_tag'
+    },
+    {
+      title:'Vim Modeline',
+      url:'https://vimdoc.sourceforge.net/htmldoc/options.html#auto-setting'
+    },
+  ];
+  document.body.appendChild(document.createTextNode('Hello world'));
   const var ul = document.createElement('ul');
   for(const link of links.sort(x=>x.url)) {
     let hostname=link.url.substring('https://'.length);
@@ -41,6 +42,10 @@ document.body.appendChild(document.createTextNode('Hello world'));
     }
   }
   document.body.appendChild(ul);
+} catch(error) {
+  const pre = document.createElement('pre');
+  pre.appendChild(document.createTextNode(error));
+}
 </script>
 </body>
 </html>
