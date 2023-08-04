@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <script src="https://cdn.jsdelivr.net/npm/eruda"></script>
 <script>eruda.init();</script>
+<style>*{box-sizing:border-box;}</style>
 </head>
 <body>
 <script>
@@ -16,8 +17,21 @@
   const xon = (e,evt,fn)=>e.addEventListener(evt,fn);
   const xrm = (e)=>e.parentNode.removeChild(e);
   {
+    let handle=null;
+    let move=false;
     const div = xce('div');
     xsa(div,'style','position:relative;background:gray');
+    xon(div,'mousedown',()=>{
+      handle=setTimeout(()=>{
+        move=true;
+        div.style.border='solid 1px black';
+      },1000);
+    });
+    xon(div,'mouseup',()=>{
+        move=false;
+        div.style.border='none';
+        clearTimeout(handle);
+    });
     const span = xce('span');
     xsa(span,'style','padding:4px;');
     xac(span,xctn('File'));
