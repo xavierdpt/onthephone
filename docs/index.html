@@ -19,7 +19,7 @@ try {
   ];
   document.body.appendChild(document.createTextNode('Hello world'));
   const var ul = document.createElement('ul');
-  for(const link of links.sort(x=>x.url)) {
+  for(let link of links.sort(x=>x.url)) {
     let hostname=link.url.substring('https://'.length);
     const firstSlash = hostname.indexOf('/');
     if(firstSlash != -1) {
@@ -44,7 +44,7 @@ try {
   document.body.appendChild(ul);
 } catch(error) {
   const pre = document.createElement('pre');
-  pre.appendChild(document.createTextNode(error));
+  pre.appendChild(document.createTextNode(error.message));
 }
 </script>
 </body>
