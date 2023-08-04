@@ -1,3 +1,4 @@
+<!-- vim: set ts=2 sw=2 et: -->
 <html>
 <head>
 <title>On the Phone again</title>
@@ -5,7 +6,24 @@
 </head>
 <body>
 <script>
+let links =[
+	{
+		title:'MDN Viewport meta tag',
+		url:'https://developer.mozilla.org/en-US/docs/Web/HTML/Viewport_meta_tag'
+	}
+];
 document.body.appendChild(document.createTextNode('Hello world'));
+  var ul = document.createElement('ul');
+  for(link of links) {
+    var li = document.createElement('li');
+    var a = document.createElement('a');
+    a.setAttribute('href',link.url);
+    a.setAttribute('target','_blank');
+    a.appendChild(document.createTextNode(link.title));
+    li.appendChild(a);
+    ul.appendChild(li);
+  }
+  document.body.appendChild(ul);
 </script>
 </body>
 </html>
