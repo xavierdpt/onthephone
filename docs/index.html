@@ -64,10 +64,57 @@
       title:'Vim Modeline',
       url:'https://vimdoc.sourceforge.net/htmldoc/options.html#auto-setting'
     },
+    {
+      title:'Crafting Interpreters',
+      url:'http://craftinginterpreters.com/contents.html'
+    },
+    {
+      title:'Metamath',
+      url:'https://us.metamath.org/'
+    },
+    {
+      title:'Metamath Book',
+      url:'https://us.metamath.org/#book'
+    },
+    {
+      title:'Coq',
+      url:'https://coq.inria.fr/'
+    },
+    {
+      title:'Isabelle',
+      url:'https://isabelle.in.tum.de/'
+    },
+    {
+      title:'WebAssembly',
+      url:'https://webassembly.github.io/spec/core/bikeshed/'
+    },
+    {
+      title:'',
+      url:''
+    },
+    {
+      title:'',
+      url:''
+    },
+    {
+      title:'',
+      url:''
+    },
+    {
+      title:'',
+      url:''
+    },
+    {
+      title:'',
+      url:''
+    },
   ];
   xac(document.body,xctn('Hello world'));
   const ul = xce('ul');
   for(let link of links.sort((x,y)=>x.url===y.url?0:x.url<y.url?-1:1)) {
+    if(!link.href) {
+      continue;
+    }
     let hostname=link.url.substring('https://'.length);
     const firstSlash = hostname.indexOf('/');
     if(firstSlash != -1) {
