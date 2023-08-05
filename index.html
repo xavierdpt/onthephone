@@ -39,7 +39,7 @@ a {
         xloading[page] = true;
         const script = xce('script');
         script.type='application/javascript';
-        script.src='./'+page+'.js';
+        script.src='./'+page+'.js?v='+xversions[page+'.js'];
         xac(xh,script);
         console.log('Script added');
       }

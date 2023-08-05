@@ -39,7 +39,7 @@ a {
         xloading[page] = true;
         const script = xce('script');
         script.type='application/javascript';
-        script.src='./'+page+'.js';
+        script.src='./'+page+'.js?v='+xversions[page+'.js'];
         xac(xh,script);
         console.log('Script added');
       }
@@ -216,7 +216,7 @@ a {
 
 <script>
 const xversions={
-"about.js":"3ae27fe0d9e02d0db73c0a926e7995b8",
-"index.html":"7fdd160e80149659dfa4bab70e464b2a",
+"about.js":"17fd332ee9801619828ddc1f42b665f1",
+"index.html":"a3616da921aad3f127200848e925e98b",
 }
 </script>
