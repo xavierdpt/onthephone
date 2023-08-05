@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+rm docs/*.*
+cp *.js docs
+cp *.html docs
+echo '<script>' >>docs/index.html
+echo 'const xversions={' >>docs/index.html
+md5sum * | awk '{print  "\"" $2 "\":\""  $1 "\"," }' >>docs/index.html
+echo '}' >>docs/index.html
+echo '</script>' >>docs/index.html
+git add .
+git commit -m .
+git push
