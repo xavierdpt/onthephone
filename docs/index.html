@@ -112,7 +112,7 @@
   xac(document.body,xctn('Hello world'));
   const ul = xce('ul');
   for(let link of links.sort((x,y)=>x.url===y.url?0:x.url<y.url?-1:1)) {
-    if(!link.href) {
+    if(!link.url) {
       continue;
     }
     let hostname=link.url.substring('https://'.length);
