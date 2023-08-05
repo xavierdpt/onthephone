@@ -104,6 +104,7 @@ a {
           xac(span,xctn('About'));
           xon(span,'click',()=>{
             loadPage('about', ()=>{
+              xclear(topdiv);
               pages.about(topdiv);
             });
           });
