@@ -1,5 +1,5 @@
 /* vim: set ts=2 sw=2 et number nowrap: */
-pages.about=prnt=>(
+pages.about=prnt=>{
 	const text = txt => {
 		const p = xce('p');
 		xac(p,xctn(txt));
