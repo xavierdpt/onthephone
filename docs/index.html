@@ -72,6 +72,7 @@ a {
     xac(xb,div);
   }
   const topdiv = xce('div');
+  xsa(topdiv,'style','position:relative');
   xac(xb,topdiv);
   const pages = {
     home:(prnt)=>{
@@ -129,7 +130,7 @@ a {
           url:''
         },
       ];
-      xac(document.body,xctn('Hello world'));
+      xac(prnt,xctn('Hello world'));
       const ul = xce('ul');
       for(let link of links.sort((x,y)=>x.url===y.url?0:x.url<y.url?-1:1)) {
         if(!link.url) {
