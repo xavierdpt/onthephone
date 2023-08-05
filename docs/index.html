@@ -103,6 +103,8 @@ a {
           xsa(span,'style','padding:4px;');
           xac(span,xctn('About'));
           xon(span,'click',()=>{
+            xrm(ndiv);
+            ndiv=null;
             loadPage('about', ()=>{
               xclear(topdiv);
               pages.about(topdiv);
