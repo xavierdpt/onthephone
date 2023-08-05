@@ -31,23 +31,33 @@ a {
   };
   const xloading = {};
   const loadPage = (page,callback)=>{
+    console.log('Loading page '+page);
     if(!pages[page]) {
+      console.log('Page not already loaded');
       if(!xloading[page]) {
+        console.log('Page not already loading');
         xloading[page] = true;
         const script = xce('script');
         script.src='./'+page+'.js';
         xac(xh,script);
+        console.log('Script added');
       }
+      console.log('Setting interval');
       let interval = setInterval(()=>{
         if(pages[page]) {
+          console.log('Page found');
           clearInterval(interval);
           interval=null;
           if(callback) {
+            console.log('Calling callback');
             callback();
+          } else {
+            console.log('Waiting...');
           }
         }
       },100);
     } else if(callback) {
+      console.log('Calling callback directly');
       callback();
     }
   };
