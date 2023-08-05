@@ -19,10 +19,35 @@ a {
   const xce = e=>document.createElement(e);
   const xctn = text=>document.createTextNode(text);
   const xb = document.body;
+  const xh = document.head;
   const xac = (p,e)=>p.appendChild(e);
   const xsa = (e,a,v)=>e.setAttribute(a,v);
   const xon = (e,evt,fn)=>e.addEventListener(evt,fn);
   const xrm = (e)=>e.parentNode.removeChild(e);
+  const xclear = e => {
+    while(e.firstChild) {
+      xrm(e.firstChild);
+    }
+  };
+  const xloading = {};
+  const loadPage = (page,callback)=>{
+    if(!pages[page]) {
+      if(!xloading[page]) {
+        xloading[page] = true;
+        const script = xce('script');
+        script.src='./'+page+'.js';
+        xac(xh,script);
+      }
+      var interval = setInterval(()=>{
+        if(pages[page]) {
+          clearInterval(interval);
+          callback();
+        }
+      },100);
+    } else {
+      callback();
+    }
+  };
   {
     let handle=null;
     let move=false;
