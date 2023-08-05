@@ -38,6 +38,7 @@ a {
         console.log('Page not already loading');
         xloading[page] = true;
         const script = xce('script');
+        script.type='application/javascript';
         script.src='./'+page+'.js';
         xac(xh,script);
         console.log('Script added');
