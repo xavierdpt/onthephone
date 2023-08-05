@@ -52,7 +52,7 @@ a {
     let handle=null;
     let move=false;
     const div = xce('div');
-    xsa(div,'style','position:relative;background:gray');
+    xsa(div,'style','position:relative;background:gray;z-index:10;');
     xon(div,'touchstart',()=>{
       handle=setTimeout(()=>{
         move=true;
@@ -157,6 +157,7 @@ a {
       ];
       xac(prnt,xctn('Hello world'));
       const ul = xce('ul');
+      let lastHostname=null;
       for(let link of links.sort((x,y)=>x.url===y.url?0:x.url<y.url?-1:1)) {
         if(!link.url) {
           continue;
@@ -166,11 +167,12 @@ a {
         if(firstSlash != -1) {
           hostname = hostname.substring(0,firstSlash);
         }
-        {
+        if(hostname != lastHostname) {
           const li = xce('li');
           li.setAttribute('style','font-weight: bold; list-style-type:none;');
           xac(li,xctn(hostname));
           xac(ul,li);
+          lastHostname = hostname;
         }
         {
           const li = xce('li');
