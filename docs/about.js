@@ -1,6 +1,6 @@
 /* vim: set ts=2 sw=2 et number nowrap: */
 pages.about=prnt=>{
-  alert('About that...');
+  alert('About that'');
 	const text = txt => {
 		const p = xce('p');
 		xac(p,xctn(txt));
