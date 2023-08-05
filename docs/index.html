@@ -71,88 +71,93 @@ a {
     xac(div,span);
     xac(xb,div);
   }
-  let links = [
-    {
-      title:'MDN Viewport meta tag',
-      url:'https://developer.mozilla.org/en-US/docs/Web/HTML/Viewport_meta_tag'
-    },
-    {
-      title:'Vim Modeline',
-      url:'https://vimdoc.sourceforge.net/htmldoc/options.html#auto-setting'
-    },
-    {
-      title:'Crafting Interpreters',
-      url:'https://craftinginterpreters.com/contents.html'
-    },
-    {
-      title:'Metamath',
-      url:'https://us.metamath.org/'
-    },
-    {
-      title:'Metamath Book',
-      url:'https://us.metamath.org/#book'
-    },
-    {
-      title:'Coq',
-      url:'https://coq.inria.fr/'
-    },
-    {
-      title:'Isabelle',
-      url:'https://isabelle.in.tum.de/'
-    },
-    {
-      title:'WebAssembly',
-      url:'https://webassembly.github.io/spec/core/bikeshed/'
-    },
-    {
-      title:'',
-      url:''
-    },
-    {
-      title:'',
-      url:''
-    },
-    {
-      title:'',
-      url:''
-    },
-    {
-      title:'',
-      url:''
-    },
-    {
-      title:'',
-      url:''
-    },
-  ];
-  xac(document.body,xctn('Hello world'));
-  const ul = xce('ul');
-  for(let link of links.sort((x,y)=>x.url===y.url?0:x.url<y.url?-1:1)) {
-    if(!link.url) {
-      continue;
+  const pages = {
+    home:()=>{
+      let links = [
+        {
+          title:'MDN Viewport meta tag',
+          url:'https://developer.mozilla.org/en-US/docs/Web/HTML/Viewport_meta_tag'
+        },
+        {
+          title:'Vim Modeline',
+          url:'https://vimdoc.sourceforge.net/htmldoc/options.html#auto-setting'
+        },
+        {
+          title:'Crafting Interpreters',
+          url:'https://craftinginterpreters.com/contents.html'
+        },
+        {
+          title:'Metamath',
+          url:'https://us.metamath.org/'
+        },
+        {
+          title:'Metamath Book',
+          url:'https://us.metamath.org/#book'
+        },
+        {
+          title:'Coq',
+          url:'https://coq.inria.fr/'
+        },
+        {
+          title:'Isabelle',
+          url:'https://isabelle.in.tum.de/'
+        },
+        {
+          title:'WebAssembly',
+          url:'https://webassembly.github.io/spec/core/bikeshed/'
+        },
+        {
+          title:'',
+          url:''
+        },
+        {
+          title:'',
+          url:''
+        },
+        {
+          title:'',
+          url:''
+        },
+        {
+          title:'',
+          url:''
+        },
+        {
+          title:'',
+          url:''
+        },
+      ];
+      xac(document.body,xctn('Hello world'));
+      const ul = xce('ul');
+      for(let link of links.sort((x,y)=>x.url===y.url?0:x.url<y.url?-1:1)) {
+        if(!link.url) {
+          continue;
+        }
+        let hostname=link.url.substring('https://'.length);
+        const firstSlash = hostname.indexOf('/');
+        if(firstSlash != -1) {
+          hostname = hostname.substring(0,firstSlash);
+        }
+        {
+          const li = xce('li');
+          li.setAttribute('style','font-weight: bold; list-style-type:none;');
+          xac(li,xctn(hostname));
+          xac(ul,li);
+        }
+        {
+          const li = xce('li');
+          const a = xce('a');
+          a.setAttribute('href',link.url);
+          a.setAttribute('target','_blank');
+          xac(a,xctn(link.title));
+          xac(li,a);
+          xac(ul,li);
+        }
+      }
+      xac(document.body,ul);
     }
-    let hostname=link.url.substring('https://'.length);
-    const firstSlash = hostname.indexOf('/');
-    if(firstSlash != -1) {
-      hostname = hostname.substring(0,firstSlash);
-    }
-    {
-      const li = xce('li');
-      li.setAttribute('style','font-weight: bold; list-style-type:none;');
-      xac(li,xctn(hostname));
-      xac(ul,li);
-    }
-    {
-      const li = xce('li');
-      const a = xce('a');
-      a.setAttribute('href',link.url);
-      a.setAttribute('target','_blank');
-      xac(a,xctn(link.title));
-      xac(li,a);
-      xac(ul,li);
-    }
-  }
-  xac(document.body,ul);
+  };
+  pages.home();
 </script>
 </body>
 </html>
