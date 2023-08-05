@@ -1,11 +1,18 @@
-<!-- vim: set ts=2 sw=2 et number: -->
+<!-- vim: set ts=2 sw=2 et number nowrap: -->
 <html>
 <head>
 <title>On the Phone again</title>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <script src="https://cdn.jsdelivr.net/npm/eruda"></script>
 <script>eruda.init();</script>
-<style>*{box-sizing:border-box;}</style>
+<style>
+* {
+  box-sizing:border-box;
+}
+a {
+  text-decoration:none;
+}
+</style>
 </head>
 <body>
 <script>
@@ -42,9 +49,10 @@
       }
       if(ndiv) {
         xrm(ndiv);
+        ndiv=null;
       } else {
         ndiv = xce('div');
-        xsa(ndiv,'style','position:absolute;background:gray');
+        xsa(ndiv,'style','display:flex;position:absolute;background:gray');
         {
           const span = xce('span');
           xsa(span,'style','padding:4px;');
