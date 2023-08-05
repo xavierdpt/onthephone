@@ -92,7 +92,9 @@ a {
           xsa(span,'style','padding:4px;');
           xac(span,xctn('About'));
           xon(span,'click',()=>{
-            loadPage('about');
+            loadPage('about', ()=>{
+              pages.about(topdiv);
+            });
           });
           xac(ndiv,span);
         }
