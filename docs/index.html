@@ -38,13 +38,16 @@ a {
         script.src='./'+page+'.js';
         xac(xh,script);
       }
-      var interval = setInterval(()=>{
+      let interval = setInterval(()=>{
         if(pages[page]) {
           clearInterval(interval);
-          callback();
+          interval=null;
+          if(callback) {
+            callback();
+          }
         }
       },100);
-    } else {
+    } else if(callback) {
       callback();
     }
   };
@@ -89,7 +92,7 @@ a {
           xsa(span,'style','padding:4px;');
           xac(span,xctn('About'));
           xon(span,'click',()=>{
-            alert('hello');
+            loadPage('about');
           });
           xac(ndiv,span);
         }
