@@ -88,6 +88,9 @@ a {
           const span = xce('span');
           xsa(span,'style','padding:4px;');
           xac(span,xctn('About'));
+          xon(span,'click',()=>{
+            alert('hello');
+          });
           xac(ndiv,span);
         }
         xac(div,ndiv);
