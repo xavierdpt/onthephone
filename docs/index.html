@@ -45,10 +45,18 @@
       } else {
         ndiv = xce('div');
         xsa(ndiv,'style','position:absolute;background:gray');
-        const span = xce('span');
-        xsa(span,'style','padding:4px;');
-        xac(span,xctn('Preferences'));
-        xac(ndiv,span);
+        {
+          const span = xce('span');
+          xsa(span,'style','padding:4px;');
+          xac(span,xctn('Preferences'));
+          xac(ndiv,span);
+        }
+        {
+          const span = xce('span');
+          xsa(span,'style','padding:4px;');
+          xac(span,xctn('About'));
+          xac(ndiv,span);
+        }
         xac(div,ndiv);
       }
     });
