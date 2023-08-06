@@ -89,7 +89,6 @@ pages.proof=prnt=>{
     });
     xac(prnt,cancel);
   });
-  });
   xac(prnt,newVar);
 	const newDef = xce('button');
   xac(newDef,xctn('New Definition'));
