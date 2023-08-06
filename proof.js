@@ -122,6 +122,23 @@ pages.proof=prnt=>{
     });
     xac(div,cancel);
     xac(prnt,div);
+    const validate = ()=>{
+      const domain = domainSelect .value;
+      const variable = input.value;
+      if(!variable) {
+        save.disabled=true;
+      } else if(variables[domain] !== undefined) {
+        if(variables[domain][variable]) {
+          save.disabled=true;
+        } else {
+          save.disabled=false;
+        }
+      } else {
+        save.disabled=true;
+      }
+    };
+    xon(variableInput,'input',validate);
+    xon(domainSelect,'change',validate);
   });
   xac(prnt,newVar);
 	const newDef = xce('button');
