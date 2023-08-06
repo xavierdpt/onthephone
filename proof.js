@@ -25,7 +25,7 @@ pages.proof=prnt=>{
     variables[domain][variable] = true;
     persist();
   };
-  const createInput = (prnt, name, text) => {
+  const createInput = (prnt, name, text, onchange) => {
     const div = xce('div');
     const label = xce('label');
     xsa(label,'for',name);
@@ -34,8 +34,12 @@ pages.proof=prnt=>{
     const input = xce('input');
     input.type='text';
     input.name=name;
+    if(onchange) {
+      xon(input,'change',onchange);
+    }
     xac(div,input);
     xac(prnt,div);
+    return input;
   };
 	const newProof = xce('button');
   xac(newProof,xctn('New Proof'));
@@ -46,8 +50,18 @@ pages.proof=prnt=>{
   xac(newDomain,xctn('New Domain'));
   xon(newDomain,'click',()=>{
     const div = xce('div');
-    const domainInput = createInput(div, 'domain', 'Domain name');
     const save = xce('button');
+    const domainInput = createInput(div, 'domain',
+      'Domain name',
+      evt=>{
+        const newDomain = evt.target.value;
+        if(variables[newDomain] !== undefined) {
+          save.addAttribute('disabled');
+        } else {
+          save.removeAttribute('disabled');
+        }
+      }
+    );
     xac(save,xctn('Save'));
     xon(save,'click',()=>{
       const domain = domainInput.value;
