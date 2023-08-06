@@ -35,6 +35,7 @@ pages.proof=prnt=>{
     input.type='text';
     input.name=name;
     xac(div,input);
+    xac(prnt,div);
   };
 	const newProof = xce('button');
   xac(newProof,xctn('New Proof'));
@@ -45,11 +46,11 @@ pages.proof=prnt=>{
   xac(newDomain,xctn('New Domain'));
   xon(newDomain,'click',()=>{
     const div = xce('div');
-    domainInput = createInput(div, 'domain', 'Domain name');
+    const domainInput = createInput(div, 'domain', 'Domain name');
     const save = xce('button');
     xac(save,xctn('Save'));
     xon(save,'click',()=>{
-      const domain = input.value;
+      const domain = domainInput.value;
       addDomain(domain);
       xrm(div);
     });
