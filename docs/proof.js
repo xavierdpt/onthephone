@@ -25,6 +25,17 @@ pages.proof=prnt=>{
     variables[domain][variable] = true;
     persist();
   };
+  const createInput = (prnt, name, text) => {
+    const div = xce('div');
+    const label = xce('label');
+    xsa(label,'for',name);
+    xac(label,xctn(text));
+    xac(div,label);
+    const input = xce('input');
+    input.type='text';
+    input.name=name;
+    xac(div,input);
+  };
 	const newProof = xce('button');
   xac(newProof,xctn('New Proof'));
   xon(newProof,'click',()=>{
@@ -33,32 +44,22 @@ pages.proof=prnt=>{
 	const newDomain = xce('button');
   xac(newDomain,xctn('New Domain'));
   xon(newDomain,'click',()=>{
-    const label = xce('label');
-    xac(label,xctn('Domain name'));
-    xac(prnt,label);
-    const input = xce('input');
-    input.type='text';
-    xac(prnt,input);
+    const div = xce('div');
+    domainInput = createInput(div, 'domain', 'Domain name');
     const save = xce('button');
     xac(save,xctn('Save'));
     xon(save,'click',()=>{
       const domain = input.value;
       addDomain(domain);
-      xrm(label);
-      xrm(input);
-      xrm(save);
-      xrm(cancel);
+      xrm(div);
     });
-    xac(prnt,save);
+    xac(div,save);
     const cancel = xce('button');
     xac(cancel,xctn('Cancel'));
     xon(cancel,'click',()=>{
-      xrm(label);
-      xrm(input);
-      xrm(save);
-      xrm(cancel);
+      xrm(div);
     });
-    xac(prnt,cancel);
+    xac(div,cancel);
   });
   xac(prnt,newDomain);
 	const newVar = xce('button');
