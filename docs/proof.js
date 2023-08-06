@@ -48,15 +48,15 @@ pages.proof=prnt=>{
   xon(newVar,'click',()=>{
     const domainLabel = xce('label');
     xac(domainLabel,xctn('Domain'));
-    xac(prnt,domainLabel );
+    xac(prnt,domainLabel);
     const domainSelect = xce('select');
-    for(domain in variables) {
+    for(const domain in variables) {
       const option = xce('option');
       option.name=domain;
       xac(option,xctn(domain));
       xac(domainSelect ,option);
     }
-    xac(prnt,domainSelect );
+    xac(prnt,domainSelect);
     const label = xce('label');
     xac(label,xctn('Variable name'));
     xac(prnt,label);
