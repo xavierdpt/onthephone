@@ -1,11 +1,29 @@
 /* vim: set ts=2 sw=2 et number nowrap: */
 pages.proof=prnt=>{
   const variables = {};
+  const persist = ()=>{
+    const json = JSON.stringify({variables});
+    localStorage.setItem('proof',json);
+  };
+  const load = ()=>{
+    let json = localStorage.getItem('proof');
+    if(json) {
+      try {
+        json = JSON.parse(json);
+        variables = json.variables;
+      } catch error {
+        console.log(error);
+      }
+    }
+  };
+  load();
   const addDomain = domain => {
     variables[domain]={};
+    persist();
   }
   const addVariable = (domain,variable) => {
     variables[domain][variable] = true;
+    persist();
   };
 	const newProof = xce('button');
   xac(newProof,xctn('New Proof'));
