@@ -116,6 +116,7 @@ pages.proof=prnt=>{
     });
     xac(div,save);
     const cancel = xce('button');
+    xac(cancel,xctn('Cancel'));
     xon(cancel,'click',()=>{
       xrm(div);
     });
