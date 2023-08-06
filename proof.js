@@ -11,7 +11,7 @@ pages.proof=prnt=>{
       try {
         json = JSON.parse(json);
         variables = json.variables;
-      } catch error {
+      } catch (error) {
         console.log(error);
       }
     }
