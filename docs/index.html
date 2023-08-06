@@ -112,6 +112,20 @@ a {
           });
           xac(ndiv,span);
         }
+        {
+          const span = xce('span');
+          xsa(span,'style','padding:4px;');
+          xac(span,xctn('Proofs'));
+          xon(span,'click',()=>{
+            xrm(ndiv);
+            ndiv=null;
+            loadPage('proof', ()=>{
+              xclear(topdiv);
+              pages.proof(topdiv);
+            });
+          });
+          xac(ndiv,span);
+        }
         xac(div,ndiv);
       }
     });
@@ -217,6 +231,7 @@ a {
 <script>
 const xversions={
 "about.js":"17fd332ee9801619828ddc1f42b665f1",
-"index.html":"a3616da921aad3f127200848e925e98b",
+"proof.js":"7f5d0366a43ceb4eeddb4b1fffcbf8fb",
+"index.html":"5ff155ece6da81d30b7c9843a5fd88b9",
 }
 </script>

@@ -112,6 +112,20 @@ a {
           });
           xac(ndiv,span);
         }
+        {
+          const span = xce('span');
+          xsa(span,'style','padding:4px;');
+          xac(span,xctn('Proofs'));
+          xon(span,'click',()=>{
+            xrm(ndiv);
+            ndiv=null;
+            loadPage('proof', ()=>{
+              xclear(topdiv);
+              pages.proof(topdiv);
+            });
+          });
+          xac(ndiv,span);
+        }
         xac(div,ndiv);
       }
     });
