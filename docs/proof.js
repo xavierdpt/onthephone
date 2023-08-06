@@ -1,6 +1,6 @@
 /* vim: set ts=2 sw=2 et number nowrap: */
 pages.proof=prnt=>{
-  const variables = {};
+  let variables = {};
   const persist = ()=>{
     const json = JSON.stringify({variables});
     localStorage.setItem('proof',json);
