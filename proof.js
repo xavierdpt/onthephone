@@ -38,6 +38,24 @@ pages.proof=prnt=>{
     xac(prnt,div);
     return input;
   };
+  const createSelect = (prnt, name, text) => {
+    const div = xce('div');
+    const label = xce('label');
+    xsa(label,'for',name);
+    xac(label,xctn(text));
+    xac(div,label);
+    const select = xce('select');
+    select.name=name;
+    xac(div,select);
+    xac(prnt,div);
+    return select;
+  };
+  const createOption = (prnt, value, display) => {
+    const option = xce('option');
+    option.value=value;
+    xac(option,xctn(display));
+    xac(prnt,option);
+  };
 	const newProof = xce('button');
   xac(newProof,xctn('New Proof'));
   xon(newProof,'click',()=>{
@@ -79,48 +97,30 @@ pages.proof=prnt=>{
 	const newVar = xce('button');
   xac(newVar,xctn('New Variable'));
   xon(newVar,'click',()=>{
+    const div = xce('div');
     const domainLabel = xce('label');
     xac(domainLabel,xctn('Domain'));
     xac(prnt,domainLabel);
-    const domainSelect = xce('select');
+    const domainSelect = createSelect(div,'domain','Domain');
     for(const domain in variables) {
-      const option = xce('option');
-      option.name=domain;
-      xac(option,xctn(domain));
-      xac(domainSelect ,option);
+      createOption(domainSelect,domain,domain); 
     }
-    xac(prnt,domainSelect);
-    const label = xce('label');
-    xac(label,xctn('Variable name'));
-    xac(prnt,label);
-    const input = xce('input');
-    input.type='text';
-    xac(prnt,input);
+    const input = createTextInput(div, 'variable', 'Variable name');
     const save = xce('button');
     xac(save,xctn('Save'));
     xon(save,'click',()=>{
       const domain = domainSelect.value;
       const variable = input.value;
       addVariable(domain,variable);
-      xrm(domainLabel);
-      xrm(domainSelect);
-      xrm(label);
-      xrm(input);
-      xrm(save);
-      xrm(cancel);
+      xrm(div);
     });
-    xac(prnt,save);
+    xac(div,save);
     const cancel = xce('button');
-    xac(cancel,xctn('Cancel'));
     xon(cancel,'click',()=>{
-      xrm(domainLabel);
-      xrm(domainSelect);
-      xrm(label);
-      xrm(input);
-      xrm(save);
-      xrm(cancel);
+      xrm(div);
     });
-    xac(prnt,cancel);
+    xac(div,cancel);
+    xac(prnt,div);
   });
   xac(prnt,newVar);
 	const newDef = xce('button');
