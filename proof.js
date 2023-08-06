@@ -28,6 +28,7 @@ pages.proof=prnt=>{
       xrm(save);
       xrm(cancel);
     });
+    xac(prnt,save);
     const cancel = xce('button');
     xac(cancel,xctn('Cancel'));
     xon(cancel,'click',()=>{
@@ -36,7 +37,7 @@ pages.proof=prnt=>{
       xrm(save);
       xrm(cancel);
     });
-    xac(prnt,newProof);
+    xac(prnt,cancel);
   });
   xac(prnt,newDomain);
 	const newVar = xce('button');
