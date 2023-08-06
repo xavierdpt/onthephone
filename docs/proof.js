@@ -60,6 +60,7 @@ pages.proof=prnt=>{
       xrm(div);
     });
     xac(div,cancel);
+    xac(prnt,div);
   });
   xac(prnt,newDomain);
 	const newVar = xce('button');
