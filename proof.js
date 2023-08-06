@@ -56,9 +56,9 @@ pages.proof=prnt=>{
       evt=>{
         const newDomain = evt.target.value;
         if(variables[newDomain] !== undefined) {
-          save.addAttribute('disabled');
+          save.disabled=true;
         } else {
-          save.removeAttribute('disabled');
+          save.disabled=false;
         }
       }
     );
