@@ -61,6 +61,22 @@ pages.proof=prnt=>{
   xon(newAxiom,'click',()=>{
     const div = xce('div');
     xac(div,xctn('New axiom'));
+    const name = createTextInput(div, 'name', 'Name');
+    const save = xce('button');
+    xac(save,xctn('Save'));
+    xon(save,'click',()=>{
+      xrm(div);
+    });
+    xac(div,save);
+    const cancel = xce('button');
+    xac(cancel,xctn('Cancel'));
+    xon(cancel,'click',()=>{
+      xrm(div);
+    });
+    xac(div,cancel);
+    const validate = ()=>{
+    };
+    xon(domainInput,'input',name);
     xac(prnt,div);
   });
   xac(prnt,newAxiom);
