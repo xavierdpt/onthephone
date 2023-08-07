@@ -56,6 +56,13 @@ pages.proof=prnt=>{
     xac(option,xctn(display));
     xac(prnt,option);
   };
+	const newAxiom = xce('button');
+  xac(newAxiom,xctn('New Axiom'));
+  xon(newAxiom,'click',()=>{
+    const div = xce('div');
+    xac(div,xctn('New axiom'));
+    xac(prnt,div);
+  });
 	const newProof = xce('button');
   xac(newProof,xctn('New Proof'));
   xon(newProof,'click',()=>{
