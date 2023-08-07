@@ -63,6 +63,7 @@ pages.proof=prnt=>{
     xac(div,xctn('New axiom'));
     xac(prnt,div);
   });
+  xac(prnt,newAxiom);
 	const newProof = xce('button');
   xac(newProof,xctn('New Proof'));
   xon(newProof,'click',()=>{
