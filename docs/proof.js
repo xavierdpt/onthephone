@@ -62,6 +62,8 @@ pages.proof=prnt=>{
     const div = xce('div');
     xac(div,xctn('New axiom'));
     const name = createTextInput(div, 'name', 'Name');
+    const axdiv = xce('div');
+    xac(div,axdiv);
     const save = xce('button');
     xac(save,xctn('Save'));
     xon(save,'click',()=>{
