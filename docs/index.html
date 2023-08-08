@@ -310,7 +310,21 @@ a {
       xac(prnt,xctn('Hello world'));
       const ul = xce('ul');
       let lastHostname=null;
-      for(let link of links.sort((x,y)=>x.url===y.url?0:x.url<y.url?-1:1)) {
+      for(let link of links.sort((x,y)=> {
+        if(x.url===y.url) {
+          if(x.title===y.title) {
+            return 0;
+          } else if(x.title<y.title) {
+            return -1;
+          } else {
+            return 1;
+          }
+        } else if(x.url<y.url) {
+          return -1;
+        } else {
+          return 1;
+        }
+      })) {
         if(!link.url) {
           continue;
         }
@@ -349,6 +363,6 @@ const xversions={
 "about.js":"17fd332ee9801619828ddc1f42b665f1",
 "chuck.js":"136a95a2bd0f8c6bdd3491db54d0f6e5",
 "proof.js":"c04841eb1f33b40701f534ce06055137",
-"index.html":"517ef072106d9632dabd2e646c9e8f38",
+"index.html":"6c9006e7daa73ad33cff244bf1c3443f",
 }
 </script>

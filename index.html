@@ -310,7 +310,21 @@ a {
       xac(prnt,xctn('Hello world'));
       const ul = xce('ul');
       let lastHostname=null;
-      for(let link of links.sort((x,y)=>x.url===y.url?0:x.url<y.url?-1:1)) {
+      for(let link of links.sort((x,y)=> {
+        if(x.url===y.url) {
+          if(x.title===y.title) {
+            return 0;
+          } else if(x.title<y.title) {
+            return -1;
+          } else {
+            return 1;
+          }
+        } else if(x.url<y.url) {
+          return -1;
+        } else {
+          return 1;
+        }
+      })) {
         if(!link.url) {
           continue;
         }
