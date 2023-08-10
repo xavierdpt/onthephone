@@ -1,360 +1,388 @@
 <!-- vim: set ts=2 sw=2 et number nowrap: -->
 <html>
-<head>
-<title>On the Phone again</title>
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<script src="https://cdn.jsdelivr.net/npm/eruda"></script>
-<script>eruda.init();</script>
-<style>
-* {
-  box-sizing:border-box;
-}
-a {
-  text-decoration:none;
-}
-</style>
-</head>
-<body>
-<script>
-  const xce = e=>document.createElement(e);
-  const xctn = text=>document.createTextNode(text);
-  const xb = document.body;
-  const xh = document.head;
-  const xac = (p,e)=>p.appendChild(e);
-  const xsa = (e,a,v)=>e.setAttribute(a,v);
-  const xon = (e,evt,fn)=>e.addEventListener(evt,fn);
-  const xrm = (e)=>e.parentNode.removeChild(e);
-  const xclear = e => {
-    while(e.firstChild) {
-      xrm(e.firstChild);
-    }
-  };
-  const xloading = {};
-  const loadPage = (page,callback)=>{
-    console.log('Loading page '+page);
-    if(!pages[page]) {
-      console.log('Page not already loaded');
-      if(!xloading[page]) {
-        console.log('Page not already loading');
-        xloading[page] = true;
-        const script = xce('script');
-        script.type='application/javascript';
-        script.src='./'+page+'.js?v='+xversions[page+'.js'];
-        xac(xh,script);
-        console.log('Script added');
+  <head>
+    <title>On the Phone again</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script src="https://cdn.jsdelivr.net/npm/eruda"></script>
+    <script>
+      eruda.init();
+    </script>
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
       }
-      console.log('Setting interval');
-      let interval = setInterval(()=>{
-        if(pages[page]) {
-          console.log('Page found');
-          clearInterval(interval);
-          interval=null;
-          if(callback) {
-            console.log('Calling callback');
-            callback();
-          } else {
-            console.log('Waiting...');
+      a {
+        text-decoration: none;
+      }
+    </style>
+  </head>
+  <body>
+    <script>
+      const xce = (e) => document.createElement(e);
+      const xctn = (text) => document.createTextNode(text);
+      const xb = document.body;
+      const xh = document.head;
+      const xac = (p, e) => p.appendChild(e);
+      const xsa = (e, a, v) => e.setAttribute(a, v);
+      const xon = (e, evt, fn) => e.addEventListener(evt, fn);
+      const xrm = (e) => e.parentNode.removeChild(e);
+      const xclear = (e) => {
+        while (e.firstChild) {
+          xrm(e.firstChild);
+        }
+      };
+      const xloading = {};
+      const loadPage = (page, callback) => {
+        console.log("Loading page " + page);
+        if (!pages[page]) {
+          console.log("Page not already loaded");
+          if (!xloading[page]) {
+            console.log("Page not already loading");
+            xloading[page] = true;
+            const script = xce("script");
+            script.type = "application/javascript";
+            script.src = "./" + page + ".js?v=" + xversions[page + ".js"];
+            xac(xh, script);
+            console.log("Script added");
           }
+          console.log("Setting interval");
+          let interval = setInterval(() => {
+            if (pages[page]) {
+              console.log("Page found");
+              clearInterval(interval);
+              interval = null;
+              if (callback) {
+                console.log("Calling callback");
+                callback();
+              } else {
+                console.log("Waiting...");
+              }
+            }
+          }, 100);
+        } else if (callback) {
+          console.log("Calling callback directly");
+          callback();
         }
-      },100);
-    } else if(callback) {
-      console.log('Calling callback directly');
-      callback();
-    }
-  };
-  {
-    let handle=null;
-    let move=false;
-    const div = xce('div');
-    xsa(div,'style','position:relative;background:gray;z-index:10;');
-    xon(div,'touchstart',()=>{
-      handle=setTimeout(()=>{
-        move=true;
-        div.style.border='solid 1px black';
-      },1000);
-    });
-    xon(div,'touchend',()=>{
-        move=false;
-        div.style.border='none';
-        clearTimeout(handle);
-    });
-    const span = xce('span');
-    xsa(span,'style','padding:4px;');
-    xac(span,xctn('File'));
-    let ndiv=null;
-    xon(span,'click',()=>{
-      if(move) {
-        return;
-      }
-      if(ndiv) {
-        xrm(ndiv);
-        ndiv=null;
-      } else {
-        ndiv = xce('div');
-        xsa(ndiv,'style','display:flex;flex-direction:column;position:absolute;background:gray');
-        {
-          const span = xce('span');
-          xsa(span,'style','padding:4px;');
-          xac(span,xctn('Preferences'));
-          xac(ndiv,span);
-        }
-        {
-          const span = xce('span');
-          xsa(span,'style','padding:4px;');
-          xac(span,xctn('About'));
-          xon(span,'click',()=>{
-            xrm(ndiv);
-            ndiv=null;
-            loadPage('about', ()=>{
-              xclear(topdiv);
-              pages.about(topdiv);
-            });
-          });
-          xac(ndiv,span);
-        }
-        {
-          const span = xce('span');
-          xsa(span,'style','padding:4px;');
-          xac(span,xctn('Proofs'));
-          xon(span,'click',()=>{
-            xrm(ndiv);
-            ndiv=null;
-            loadPage('proof', ()=>{
-              xclear(topdiv);
-              pages.proof(topdiv);
-            });
-          });
-          xac(ndiv,span);
-        }
-        xac(div,ndiv);
-      }
-    });
-    xac(div,span);
-    xac(xb,div);
-  }
-  const topdiv = xce('div');
-  xsa(topdiv,'style','position:relative');
-  xac(xb,topdiv);
-  const pages = {
-    home:(prnt)=>{
-      let links = [
-        {
-          title:'MDN Viewport meta tag',
-          url:'https://developer.mozilla.org/en-US/docs/Web/HTML/Viewport_meta_tag'
-        },
-        {
-          title:'Vim Modeline',
-          url:'https://vimdoc.sourceforge.net/htmldoc/options.html#auto-setting'
-        },
-        {
-          title:'Crafting Interpreters',
-          url:'https://craftinginterpreters.com/contents.html'
-        },
-        {
-          title:'Metamath',
-          url:'https://us.metamath.org/'
-        },
-        {
-          title:'Metamath Book',
-          url:'https://us.metamath.org/#book'
-        },
-        {
-          title:'Coq',
-          url:'https://coq.inria.fr/'
-        },
-        {
-          title:'Isabelle',
-          url:'https://isabelle.in.tum.de/'
-        },
-        {
-          title:'WebAssembly',
-          url:'https://webassembly.github.io/spec/core/bikeshed/'
-        },
-        {
-          title:'Maple',
-          url:'https://www.maplesoft.com/products/Maple/'
-        },
-        {
-          title:'Mathematica',
-          url:'https://www.wolfram.com/mathematica/'
-        },
-        {
-          title:'MATLAB',
-          url:'https://www.mathworks.com/products/matlab.html'
-        },
-        {
-          title:'Scilab',
-          url:'https://www.scilab.org/'
-        },
-        {
-          title:'GNU Octave',
-          url:'https://octave.org/'
-        },
-        {
-          title:'Axiom',
-          url:'https://www.axiom-developer.org/'
-        },
-        {
-          title:'Sage',
-          url:'https://www.sagemath.org/'
-        },
-        {
-          title:'Maxima',
-          url:'https://maxima.sourceforge.io/'
-        },
-        {
-          title:'R',
-          url:'https://www.r-project.org/'
-        },
-        {
-          title:'Singular',
-          url:'https://www.singular.uni-kl.de/'
-        },
-        {
-          title:'Mizar',
-          url:'https://mizar.org/'
-        },
-        {
-          title:'HOL',
-          url:'https://hol-theorem-prover.org/'
-        },
-        {
-          title:'HOL Light',
-          url:'https://www.cl.cam.ac.uk/~jrh13/hol-light/'
-        },
-        {
-          title:'Standard ML',
-          url:'https://smlfamily.github.io/'
-        },
-        {
-          title:'OCaml',
-          url:'https://ocaml.org/'
-        },
-        {
-          title:'JavaScript for impatient programmers',
-          url:'https://exploringjs.com/impatient-js/toc.html'
-        },
-        {
-          title:'Deep JavaScript',
-          url:'https://exploringjs.com/deep-js/toc.html'
-        },
-        {
-          title:'Tackling TypeScript',
-          url:'https://exploringjs.com/tackling-ts/toc.html'
-        },
-        {
-          title:'Shell scripting with Node.js',
-          url:'https://exploringjs.com/nodejs-shell-scripting/toc.html'
-        },
-        {
-          title:'Speaking JavaScript',
-          url:'https://exploringjs.com/es5/toc.html'
-        },
-        {
-          title:'Exploring ES6',
-          url:'https://exploringjs.com/es6/index.html'
-        },
-        {
-          title:'Learn You a Haskell for Great Good!',
-          url:'https://learnyouahaskell.com/chapters'
-        },
-        {
-          title:'Software Foundations Volume 1: Logical Foundations',
-          url:'https://softwarefoundations.cis.upenn.edu/lf-current/toc.html'
-        },
-        {
-          title:'Software Foundations Volume 2: Programming Language Foundations',
-          url:'https://softwarefoundations.cis.upenn.edu/plf-current/toc.html'
-        },
-        {
-          title:'Software Foundations Volume 3: Verified Functional Algorithms',
-          url:'https://softwarefoundations.cis.upenn.edu/vfa-current/toc.html'
-        },
-        {
-          title:'Software Foundations Volume 4: QuickChick: Property-Based Testing in Coq',
-          url:'https://softwarefoundations.cis.upenn.edu/qc-current/toc.html'
-        },
-        {
-          title:'Software Foundations Volume 5: Verifiable C',
-          url:'https://softwarefoundations.cis.upenn.edu/vc-current/toc.html'
-        },
-        {
-          title:'Software Foundations Volume 6: Separation Logic Foundations',
-          url:'https://softwarefoundations.cis.upenn.edu/slf-current/toc.html'
-        },
-        {
-          title:'Coq Documentation',
-          url:'https://coq.inria.fr/documentation'
-        },
-        {
-          title:'Coq Reference Manual',
-          url:'https://coq.inria.fr/distrib/current/refman/'
-        },
-        {
-          title:'Coq Standard Library',
-          url:'https://coq.inria.fr/distrib/current/stdlib/'
-        },
-        {
-          title:'Gecode',
-          url:'https://www.gecode.org/'
-        },
-        {
-          title:'LLVM',
-          url:'https://llvm.org/'
-        },
-        {
-          title:'CompCert',
-          url:'https://compcert.org/'
-        },
-      ];
-      xac(prnt,xctn('Hello world'));
-      const ul = xce('ul');
-      let lastHostname=null;
-      for(let link of links.sort((x,y)=> {
-        if(x.url===y.url) {
-          if(x.title===y.title) {
-            return 0;
-          } else if(x.title<y.title) {
-            return -1;
-          } else {
-            return 1;
+      };
+      {
+        let handle = null;
+        let move = false;
+        const div = xce("div");
+        xsa(div, "style", "position:relative;background:gray;z-index:10;");
+        xon(div, "touchstart", () => {
+          handle = setTimeout(() => {
+            move = true;
+            div.style.border = "solid 1px black";
+          }, 1000);
+        });
+        xon(div, "touchend", () => {
+          move = false;
+          div.style.border = "none";
+          clearTimeout(handle);
+        });
+        const span = xce("span");
+        xsa(span, "style", "padding:4px;");
+        xac(span, xctn("File"));
+        let ndiv = null;
+        xon(span, "click", () => {
+          if (move) {
+            return;
           }
-        } else if(x.url<y.url) {
-          return -1;
-        } else {
-          return 1;
-        }
-      })) {
-        if(!link.url) {
-          continue;
-        }
-        let hostname=link.url.substring('https://'.length);
-        const firstSlash = hostname.indexOf('/');
-        if(firstSlash != -1) {
-          hostname = hostname.substring(0,firstSlash);
-        }
-        if(hostname != lastHostname) {
-          const li = xce('li');
-          li.setAttribute('style','font-weight: bold; list-style-type:none;');
-          xac(li,xctn(hostname));
-          xac(ul,li);
-          lastHostname = hostname;
-        }
-        {
-          const li = xce('li');
-          const a = xce('a');
-          a.setAttribute('href',link.url);
-          a.setAttribute('target','_blank');
-          xac(a,xctn(link.title));
-          xac(li,a);
-          xac(ul,li);
-        }
+          if (ndiv) {
+            xrm(ndiv);
+            ndiv = null;
+          } else {
+            ndiv = xce("div");
+            xsa(
+              ndiv,
+              "style",
+              "display:flex;flex-direction:column;position:absolute;background:gray"
+            );
+            {
+              const span = xce("span");
+              xsa(span, "style", "padding:4px;");
+              xac(span, xctn("Preferences"));
+              xac(ndiv, span);
+            }
+            {
+              const span = xce("span");
+              xsa(span, "style", "padding:4px;");
+              xac(span, xctn("PostgreSQL"));
+              xon(span, "click", () => {
+                xrm(ndiv);
+                ndiv = null;
+                loadPage("postgresql", () => {
+                  xclear(topdiv);
+                  pages.postgresql(topdiv);
+                });
+              });
+              xac(ndiv, span);
+            }
+            {
+              const span = xce("span");
+              xsa(span, "style", "padding:4px;");
+              xac(span, xctn("About"));
+              xon(span, "click", () => {
+                xrm(ndiv);
+                ndiv = null;
+                loadPage("about", () => {
+                  xclear(topdiv);
+                  pages.about(topdiv);
+                });
+              });
+              xac(ndiv, span);
+            }
+            {
+              const span = xce("span");
+              xsa(span, "style", "padding:4px;");
+              xac(span, xctn("Proofs"));
+              xon(span, "click", () => {
+                xrm(ndiv);
+                ndiv = null;
+                loadPage("proof", () => {
+                  xclear(topdiv);
+                  pages.proof(topdiv);
+                });
+              });
+              xac(ndiv, span);
+            }
+            xac(div, ndiv);
+          }
+        });
+        xac(div, span);
+        xac(xb, div);
       }
-      xac(prnt,ul);
-    }
-  };
-  pages.home(topdiv);
-</script>
-</body>
+      const topdiv = xce("div");
+      xsa(topdiv, "style", "position:relative");
+      xac(xb, topdiv);
+      const pages = {
+        home: (prnt) => {
+          let links = [
+            {
+              title: "MDN Viewport meta tag",
+              url: "https://developer.mozilla.org/en-US/docs/Web/HTML/Viewport_meta_tag",
+            },
+            {
+              title: "Vim Modeline",
+              url: "https://vimdoc.sourceforge.net/htmldoc/options.html#auto-setting",
+            },
+            {
+              title: "Crafting Interpreters",
+              url: "https://craftinginterpreters.com/contents.html",
+            },
+            {
+              title: "Metamath",
+              url: "https://us.metamath.org/",
+            },
+            {
+              title: "Metamath Book",
+              url: "https://us.metamath.org/#book",
+            },
+            {
+              title: "Coq",
+              url: "https://coq.inria.fr/",
+            },
+            {
+              title: "Isabelle",
+              url: "https://isabelle.in.tum.de/",
+            },
+            {
+              title: "WebAssembly",
+              url: "https://webassembly.github.io/spec/core/bikeshed/",
+            },
+            {
+              title: "Maple",
+              url: "https://www.maplesoft.com/products/Maple/",
+            },
+            {
+              title: "Mathematica",
+              url: "https://www.wolfram.com/mathematica/",
+            },
+            {
+              title: "MATLAB",
+              url: "https://www.mathworks.com/products/matlab.html",
+            },
+            {
+              title: "Scilab",
+              url: "https://www.scilab.org/",
+            },
+            {
+              title: "GNU Octave",
+              url: "https://octave.org/",
+            },
+            {
+              title: "Axiom",
+              url: "https://www.axiom-developer.org/",
+            },
+            {
+              title: "Sage",
+              url: "https://www.sagemath.org/",
+            },
+            {
+              title: "Maxima",
+              url: "https://maxima.sourceforge.io/",
+            },
+            {
+              title: "R",
+              url: "https://www.r-project.org/",
+            },
+            {
+              title: "Singular",
+              url: "https://www.singular.uni-kl.de/",
+            },
+            {
+              title: "Mizar",
+              url: "https://mizar.org/",
+            },
+            {
+              title: "HOL",
+              url: "https://hol-theorem-prover.org/",
+            },
+            {
+              title: "HOL Light",
+              url: "https://www.cl.cam.ac.uk/~jrh13/hol-light/",
+            },
+            {
+              title: "Standard ML",
+              url: "https://smlfamily.github.io/",
+            },
+            {
+              title: "OCaml",
+              url: "https://ocaml.org/",
+            },
+            {
+              title: "JavaScript for impatient programmers",
+              url: "https://exploringjs.com/impatient-js/toc.html",
+            },
+            {
+              title: "Deep JavaScript",
+              url: "https://exploringjs.com/deep-js/toc.html",
+            },
+            {
+              title: "Tackling TypeScript",
+              url: "https://exploringjs.com/tackling-ts/toc.html",
+            },
+            {
+              title: "Shell scripting with Node.js",
+              url: "https://exploringjs.com/nodejs-shell-scripting/toc.html",
+            },
+            {
+              title: "Speaking JavaScript",
+              url: "https://exploringjs.com/es5/toc.html",
+            },
+            {
+              title: "Exploring ES6",
+              url: "https://exploringjs.com/es6/index.html",
+            },
+            {
+              title: "Learn You a Haskell for Great Good!",
+              url: "https://learnyouahaskell.com/chapters",
+            },
+            {
+              title: "Software Foundations Volume 1: Logical Foundations",
+              url: "https://softwarefoundations.cis.upenn.edu/lf-current/toc.html",
+            },
+            {
+              title:
+                "Software Foundations Volume 2: Programming Language Foundations",
+              url: "https://softwarefoundations.cis.upenn.edu/plf-current/toc.html",
+            },
+            {
+              title:
+                "Software Foundations Volume 3: Verified Functional Algorithms",
+              url: "https://softwarefoundations.cis.upenn.edu/vfa-current/toc.html",
+            },
+            {
+              title:
+                "Software Foundations Volume 4: QuickChick: Property-Based Testing in Coq",
+              url: "https://softwarefoundations.cis.upenn.edu/qc-current/toc.html",
+            },
+            {
+              title: "Software Foundations Volume 5: Verifiable C",
+              url: "https://softwarefoundations.cis.upenn.edu/vc-current/toc.html",
+            },
+            {
+              title:
+                "Software Foundations Volume 6: Separation Logic Foundations",
+              url: "https://softwarefoundations.cis.upenn.edu/slf-current/toc.html",
+            },
+            {
+              title: "Coq Documentation",
+              url: "https://coq.inria.fr/documentation",
+            },
+            {
+              title: "Coq Reference Manual",
+              url: "https://coq.inria.fr/distrib/current/refman/",
+            },
+            {
+              title: "Coq Standard Library",
+              url: "https://coq.inria.fr/distrib/current/stdlib/",
+            },
+            {
+              title: "Gecode",
+              url: "https://www.gecode.org/",
+            },
+            {
+              title: "LLVM",
+              url: "https://llvm.org/",
+            },
+            {
+              title: "CompCert",
+              url: "https://compcert.org/",
+            },
+          ];
+          xac(prnt, xctn("Hello world"));
+          const ul = xce("ul");
+          let lastHostname = null;
+          for (let link of links.sort((x, y) => {
+            if (x.url === y.url) {
+              if (x.title === y.title) {
+                return 0;
+              } else if (x.title < y.title) {
+                return -1;
+              } else {
+                return 1;
+              }
+            } else if (x.url < y.url) {
+              return -1;
+            } else {
+              return 1;
+            }
+          })) {
+            if (!link.url) {
+              continue;
+            }
+            let hostname = link.url.substring("https://".length);
+            const firstSlash = hostname.indexOf("/");
+            if (firstSlash != -1) {
+              hostname = hostname.substring(0, firstSlash);
+            }
+            if (hostname != lastHostname) {
+              const li = xce("li");
+              li.setAttribute(
+                "style",
+                "font-weight: bold; list-style-type:none;"
+              );
+              xac(li, xctn(hostname));
+              xac(ul, li);
+              lastHostname = hostname;
+            }
+            {
+              const li = xce("li");
+              const a = xce("a");
+              a.setAttribute("href", link.url);
+              a.setAttribute("target", "_blank");
+              xac(a, xctn(link.title));
+              xac(li, a);
+              xac(ul, li);
+            }
+          }
+          xac(prnt, ul);
+        },
+      };
+      pages.home(topdiv);
+    </script>
+  </body>
 </html>
-

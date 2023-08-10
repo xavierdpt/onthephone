@@ -7,6 +7,3 @@ echo 'const xversions={' >>docs/index.html
 md5sum *.js *.html | awk '{print  "\"" $2 "\":\""  $1 "\"," }' >>docs/index.html
 echo '}' >>docs/index.html
 echo '</script>' >>docs/index.html
-git add .
-git commit -m .
-git push
